@@ -87,10 +87,10 @@ var main = function() {
     }
 
     if (keyboard.left) {
-        tony.facingDirection = 'right';
+        tony.facingDirection = 'left';
         tony.flip('horizontal').pushHorizontal(-horizontalMovement);
     } else if (keyboard.right) {
-        tony.facingDirection = 'left';
+        tony.facingDirection = 'right';
         tony.unflip().pushHorizontal(horizontalMovement);
     }
 
