@@ -51,7 +51,7 @@ var main = function() {
         foxy.unflip().pushHorizontal(horizontalMovement);
     }
 
-    if (keyboard.space) {
+    if (keyboard.f) {
         if (foxyCanShoot) {
             foxyCanShoot = false;
 
@@ -88,7 +88,7 @@ var main = function() {
         tony.unflip().pushHorizontal(horizontalMovement);
     }
 
-    if (keyboard.enter) {
+    if (keyboard.alt) {
         if (tonyCanShoot) {
             tonyCanShoot = false;
 
