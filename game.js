@@ -17,7 +17,7 @@ var keyboard = new l.keyboard();
 
 var foxy = new l.entity();
 foxy.setSprite('images/foxy.png', true, true, 2, 75)
-    .setPosition(50, 50)
+    .setPosition(100, 50)
     .setAnchor(12, 12)
     .setFriction(friction)
     .setGravity(gravity);
@@ -29,12 +29,13 @@ foxy.plungers = new l.group();
 
 var tony = new l.entity();
 tony.setSprite('images/tony.png', true, true, 2, 75)
-    .setPosition(150, 50)
+    .setPosition(l.globals.room.width - 100, 50)
     .setAnchor(12, 12)
     .setFriction(friction)
-    .setGravity(gravity);
+    .setGravity(gravity)
+    .flip('horizontal');
 
-tony.facing = 'right';
+tony.facing = 'left';
 tony.canShoot = 'true';
 tony.reloadTime = 250;
 tony.plungers = new l.group();
@@ -109,9 +110,9 @@ var main = function() {
                 .setGravity(gravity);
 
             if (tony.facingDirection == 'right') {
-                plunger.pushHorizontal(tool.random(-firePower - firePowerDeviation, -firePower + firePowerDeviation));
-            } else {
                 plunger.pushHorizontal(tool.random(firePower - firePowerDeviation, firePower + firePowerDeviation));
+            } else {
+                plunger.pushHorizontal(tool.random(-firePower - firePowerDeviation, -firePower + firePowerDeviation));
             }
 
             tony.plungers.add(plunger);
