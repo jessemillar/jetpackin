@@ -5,13 +5,6 @@ var jetpackPower = 0.5,
     gravity = jetpackPower / 2,
     friction = jetpackPower / 6;
 
-var foxyFacingDirection = 'right',
-    foxyCanShoot = true,
-    foxyReloadTime = 250,
-    tonyFacingDirection = 'right',
-    tonyCanShoot = true,
-    tonyReloadTime = 250;
-
 var lorina = new l.lorina();
 lorina.setTitle('Jetpackin\'')
     .setColor('#ed7656')
@@ -29,12 +22,20 @@ foxy.setSprite('images/foxy.png', true, true, 2, 75)
     .setFriction(friction)
     .setGravity(gravity);
 
+foxy.facing = 'right';
+foxy.canShoot = 'true';
+foxy.reloadTime = 250;
+
 var tony = new l.entity();
 tony.setSprite('images/tony.png', true, true, 2, 75)
     .setPosition(150, 50)
     .setAnchor(12, 12)
     .setFriction(friction)
     .setGravity(gravity);
+
+tony.facing = 'right';
+tony.canShoot = 'true';
+tony.reloadTime = 250;
 
 var plungers = new l.group();
 
@@ -44,20 +45,20 @@ var main = function() {
     }
 
     if (keyboard.a) {
-        foxyFacingDirection = 'right';
+        foxy.facingDirection = 'right';
         foxy.flip('horizontal').pushHorizontal(-horizontalMovement);
     } else if (keyboard.d) {
-        foxyFacingDirection = 'left';
+        foxy.facingDirection = 'left';
         foxy.unflip().pushHorizontal(horizontalMovement);
     }
 
     if (keyboard.f) {
-        if (foxyCanShoot) {
-            foxyCanShoot = false;
+        if (foxy.canShoot) {
+            foxy.canShoot = false;
 
             setTimeout(function() {
-                foxyCanShoot = true;
-            }, foxyReloadTime);
+                foxy.canShoot = true;
+            }, foxy.reloadTime);
 
             var plunger = new l.entity();
             plunger.setSprite('images/plunger.png', true, true)
@@ -66,7 +67,7 @@ var main = function() {
                 .setFriction(friction)
                 .setGravity(gravity);
 
-            if (foxyFacingDirection == 'right') {
+            if (foxy.facingDirection == 'right') {
                 plunger.pushHorizontal(tool.random(-firePower - firePowerDeviation, -firePower + firePowerDeviation));
             } else {
                 plunger.pushHorizontal(tool.random(firePower - firePowerDeviation, firePower + firePowerDeviation));
@@ -81,20 +82,20 @@ var main = function() {
     }
 
     if (keyboard.left) {
-        tonyFacingDirection = 'right';
+        tony.facingDirection = 'right';
         tony.flip('horizontal').pushHorizontal(-horizontalMovement);
     } else if (keyboard.right) {
-        tonyFacingDirection = 'left';
+        tony.facingDirection = 'left';
         tony.unflip().pushHorizontal(horizontalMovement);
     }
 
     if (keyboard.alt) {
-        if (tonyCanShoot) {
-            tonyCanShoot = false;
+        if (tony.canShoot) {
+            tony.canShoot = false;
 
             setTimeout(function() {
-                tonyCanShoot = true;
-            }, tonyReloadTime);
+                tony.canShoot = true;
+            }, tony.reloadTime);
 
             var plunger = new l.entity();
             plunger.setSprite('images/plunger.png', true, true)
@@ -103,7 +104,7 @@ var main = function() {
                 .setFriction(friction)
                 .setGravity(gravity);
 
-            if (tonyFacingDirection == 'right') {
+            if (tony.facingDirection == 'right') {
                 plunger.pushHorizontal(tool.random(-firePower - firePowerDeviation, -firePower + firePowerDeviation));
             } else {
                 plunger.pushHorizontal(tool.random(firePower - firePowerDeviation, firePower + firePowerDeviation));
@@ -114,7 +115,7 @@ var main = function() {
     }
 
     lorina.blank();
-    foxy.contain().applyPhysics().buffer();//.debug();
+    foxy.contain().applyPhysics().buffer(); //.debug();
     tony.contain().applyPhysics().buffer();
     plungers.steer().stick().applyPhysics().buffer();
     lorina.draw();
