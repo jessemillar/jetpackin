@@ -25,6 +25,7 @@ foxy.setSprite('images/foxy.png', true, true, 2, 75)
 foxy.facing = 'right';
 foxy.canShoot = 'true';
 foxy.reloadTime = 250;
+foxy.plungers = new l.group();
 
 var tony = new l.entity();
 tony.setSprite('images/tony.png', true, true, 2, 75)
@@ -36,8 +37,7 @@ tony.setSprite('images/tony.png', true, true, 2, 75)
 tony.facing = 'right';
 tony.canShoot = 'true';
 tony.reloadTime = 250;
-
-var plungers = new l.group();
+tony.plungers = new l.group();
 
 var main = function() {
     if (keyboard.w) {
@@ -73,8 +73,12 @@ var main = function() {
                 plunger.pushHorizontal(tool.random(firePower - firePowerDeviation, firePower + firePowerDeviation));
             }
 
-            plungers.add(plunger);
+            foxy.plungers.add(plunger);
         }
+    }
+
+    if (tool.checkCollision(foxy, tony.plungers)) {
+        foxy.delete();
     }
 
     if (keyboard.up) {
@@ -110,14 +114,19 @@ var main = function() {
                 plunger.pushHorizontal(tool.random(firePower - firePowerDeviation, firePower + firePowerDeviation));
             }
 
-            plungers.add(plunger);
+            tony.plungers.add(plunger);
         }
+    }
+
+    if (tool.checkCollision(tony, foxy.plungers)) {
+        tony.delete();
     }
 
     lorina.blank();
     foxy.contain().applyPhysics().buffer(); //.debug();
     tony.contain().applyPhysics().buffer();
-    plungers.steer().stick().applyPhysics().buffer();
+    foxy.plungers.steer().stick().applyPhysics().buffer();
+    tony.plungers.steer().stick().applyPhysics().buffer();
     lorina.draw();
 };
 
